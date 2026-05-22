@@ -1,7 +1,14 @@
-#include <iostream>
+#include "AppWindow.h"
 
 int main()
 {
-    std::cout << "Hello, World!" << std::endl;
+    AppWindow app;
+
+    if (app.init()) {
+
+        while (app.isRun()) {
+            app.broadcast();
+        }
+    }
     return 0;
 }
