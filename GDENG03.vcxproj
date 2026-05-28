@@ -21,12 +21,14 @@
   <ItemGroup>
     <ClInclude Include="AppWindow.h" />
     <ClInclude Include="GraphicsEngine.h" />
+    <ClInclude Include="SwapChain.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AppWindow.cpp" />
     <ClCompile Include="GraphicsEngine.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="SwapChain.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

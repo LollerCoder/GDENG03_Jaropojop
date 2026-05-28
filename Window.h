@@ -9,8 +9,11 @@ public:
 	bool broadcast();
 	bool release();
 	bool isRun();
+
+	RECT getClientWindowRect();
+	void setHWND(HWND hwnd);
 public:
-	virtual void onCreate()=0;
+	virtual void onCreate();
 	virtual void onUpdate()=0;
 	virtual void onDestroy();
 public:
