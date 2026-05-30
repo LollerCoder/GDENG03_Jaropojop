@@ -14,7 +14,7 @@ public:
 	void setHWND(HWND hwnd);
 public:
 	virtual void onCreate();
-	virtual void onUpdate()=0;
+	virtual void onUpdate();
 	virtual void onDestroy();
 public:
 	~Window();
