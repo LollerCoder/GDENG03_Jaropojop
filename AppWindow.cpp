@@ -29,9 +29,25 @@ void AppWindow::onCreate()
 	m_swap_chain->init(this->m_hwnd, rc.right - rc.left, rc.bottom - rc.top);
 
 	vertex list[] = {
-		{-0.5f,-0.5f,0.0f},
+		//triangle
+		/*{-0.5f,-0.5f,0.0f},
 		{0.0f, 0.5f,0.0f},
-		{0.5f,-0.5f,0.0f}
+		{0.5f,-0.5f,0.0f}*/
+
+		//square with triangle list
+		/*{-0.5f,-0.5f,0.0f},
+		{-0.5f, 0.5f,0.0f},
+		{0.5f,0.5f,0.0f},
+
+		{ 0.5f,0.5f,0.0f },
+		{0.5f, -0.5f,0.0f},
+		{-0.5f,-0.5f,0.0f}*/
+
+		//square but with triangle strip
+		{-0.5f,-0.5f,0.0f},
+		{-0.5f, 0.5f,0.0f},
+		{0.5f, -0.5f,0.0f},
+		{0.5f,0.5f,0.0f}
 	};
 
 
@@ -61,7 +77,7 @@ void AppWindow::onUpdate()
 
 	GraphicsEngine::get()->getImmediateDeviceContext()->setVertexBuffer(m_vb);
 
-	GraphicsEngine::get()->getImmediateDeviceContext()->drawTriangleList(m_vb->getSizeVertexList(), 0);
+	GraphicsEngine::get()->getImmediateDeviceContext()->drawTriangleStrip(m_vb->getSizeVertexList(), 0);
 
 	m_swap_chain->present(false);
 }
