@@ -25,6 +25,18 @@
     <Filter Include="GameEngine\GraphicsEngine\VertexShader">
       <UniqueIdentifier>{3dfc3d73-74db-4c3c-9c10-f7e9d00bcd1e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameEngine\GraphicsEngine\PixelShader">
+      <UniqueIdentifier>{a49ad4da-3b51-493e-b844-492bf2b24af8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\SoundEngine">
+      <UniqueIdentifier>{7164cf0e-2b4a-4838-b54d-0727957c4760}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\SoundEngine\WavLoader">
+      <UniqueIdentifier>{9e32680f-733f-4603-af25-d4a3fad2f05a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\SoundEngine\Sound">
+      <UniqueIdentifier>{04b383a5-8016-4052-910c-a7339446e1eb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -51,6 +63,18 @@
     <ClCompile Include="VertexShader.cpp">
       <Filter>GameEngine\GraphicsEngine\VertexShader</Filter>
     </ClCompile>
+    <ClCompile Include="PixelShader.cpp">
+      <Filter>GameEngine\GraphicsEngine\PixelShader</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundEngine.cpp">
+      <Filter>GameEngine\SoundEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="Wavloader.cpp">
+      <Filter>GameEngine\SoundEngine\WavLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound.cpp">
+      <Filter>GameEngine\SoundEngine\Sound</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppWindow.h">
@@ -74,9 +98,24 @@
     <ClInclude Include="VertexShader.h">
       <Filter>GameEngine\GraphicsEngine\VertexShader</Filter>
     </ClInclude>
+    <ClInclude Include="PixelShader.h">
+      <Filter>GameEngine\GraphicsEngine\PixelShader</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundEngine.h">
+      <Filter>GameEngine\SoundEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Wavloader.h">
+      <Filter>GameEngine\SoundEngine\WavLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound.h">
+      <Filter>GameEngine\SoundEngine\Sound</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="VertexShader.hlsl">
+      <Filter>App</Filter>
+    </FxCompile>
+    <FxCompile Include="PixelShader.hlsl">
       <Filter>App</Filter>
     </FxCompile>
   </ItemGroup>
