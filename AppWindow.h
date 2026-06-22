@@ -6,8 +6,7 @@
 #include "VertexBuffer.h"
 #include "VertexShader.h"
 #include "PixelShader.h"
-//#include "SoundEngine.h"
-//#include "Sound.h"
+
 
 class AppWindow : public Window
 {
@@ -24,8 +23,6 @@ private:
 	VertexBuffer* m_vb;
 	VertexShader* m_vs;
 	PixelShader* m_ps;
-private:
-	/*SoundEngine m_soundEngine;
-	Sound m_chime;*/
+
 };
 

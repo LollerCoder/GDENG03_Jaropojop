@@ -11,10 +11,15 @@ class GraphicsEngine
 {
 public:
 	GraphicsEngine();
+	void initialize();
+	void destroy();
 	bool init();
 	bool Release();
-
+	
 	~GraphicsEngine();
+	GraphicsEngine (GraphicsEngine* const&) {};
+	GraphicsEngine& operator=(GraphicsEngine* const&) {};
+	static GraphicsEngine* sharedInstance;
 
 public:
 	SwapChain* createSwapChain();

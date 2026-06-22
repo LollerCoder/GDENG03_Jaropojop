@@ -7,8 +7,23 @@
 
 #include <d3dcompiler.h>
 
+GraphicsEngine* GraphicsEngine::sharedInstance = nullptr;
+
 GraphicsEngine::GraphicsEngine()
 {
+}
+
+void GraphicsEngine::initialize()
+{
+    sharedInstance = new GraphicsEngine();
+    sharedInstance->init();
+}
+
+void GraphicsEngine::destroy()
+{
+    if (sharedInstance != NULL) {
+        sharedInstance->Release();
+    }
 }
 
 bool GraphicsEngine::init()
@@ -163,6 +178,6 @@ void GraphicsEngine::releaseCompiledShader()
 
 GraphicsEngine* GraphicsEngine::get()
 {
-    static GraphicsEngine engine;
-    return &engine;
+    
+    return sharedInstance;
 }

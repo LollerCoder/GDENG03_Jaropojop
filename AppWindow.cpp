@@ -23,49 +23,26 @@ AppWindow::~AppWindow()
 
 void AppWindow::onCreate()
 {
-	//SoundEngine stuff
-	/*wchar_t path[MAX_PATH];
-	GetCurrentDirectoryW(MAX_PATH, path);
-	OutputDebugStringW(path);
-	OutputDebugStringW(L"\n");
-
-	OutputDebugStringA("START\n");
-	if (!m_soundEngine.init())
-        return;
-
-    if (!m_chime.load(
-        m_soundEngine.getAudioEngine(),
-        L"lion.wav"))
-        return;
-	m_chime.play();*/
+	
     
 	Window::onCreate();
-	GraphicsEngine::get()->init();
+	//GraphicsEngine::get()->init();
+	GraphicsEngine::get()->initialize();
 	m_swap_chain = GraphicsEngine::get()->createSwapChain();
 
 	RECT rc = this->getClientWindowRect();
 	m_swap_chain->init(this->m_hwnd, rc.right - rc.left, rc.bottom - rc.top);
 
 	vertex list[] = {
-		//triangle
-		/*{-0.5f,-0.5f,0.0f},
-		{0.0f, 0.5f,0.0f},
-		{0.5f,-0.5f,0.0f}*/
-
-		//square with triangle list
-		/*{-0.5f,-0.5f,0.0f},
-		{-0.5f, 0.5f,0.0f},
-		{0.5f,0.5f,0.0f},
-
-		{ 0.5f,0.5f,0.0f },
-		{0.5f, -0.5f,0.0f},
-		{-0.5f,-0.5f,0.0f}*/
+		
 
 		//square but with triangle strip
-		{-0.5f,-0.5f,0.0f,    1,0,0},
+		{-0.5f,-0.5f,0.0f,    0,1,0},
 		{-0.5f, 0.5f,0.0f,    0,1,0},
-		{0.5f, -0.5f,0.0f,    1,0,1},
-		{0.5f,0.5f,0.0f,      0,0,1}
+		{0.5f, -0.5f,0.0f,    0,1,0},
+		{0.5f,0.5f,0.0f,      0,1,0}
+
+		
 	};
 
 
@@ -101,6 +78,7 @@ void AppWindow::onUpdate()
 	RECT rc = this->getClientWindowRect();
 	GraphicsEngine::get()->getImmediateDeviceContext()->setViewportSize(rc.right - rc.left, rc.bottom - rc.top);
 	
+	//relevant to draws
 	GraphicsEngine::get()->getImmediateDeviceContext()->setVertexShader(m_vs);
 	GraphicsEngine::get()->getImmediateDeviceContext()->setPixelShader(m_ps);
 
@@ -114,14 +92,13 @@ void AppWindow::onUpdate()
 void AppWindow::onDestroy()
 {
 
-	/*m_chime.release();
-	m_soundEngine.Release();*/
 
 	Window::onDestroy();
 	m_vb->Release();
 	m_vs->Release();
 	m_ps->Release();
 	m_swap_chain->release();
-	GraphicsEngine::get()->Release();
+	GraphicsEngine::get()->destroy();
+
 
 }
