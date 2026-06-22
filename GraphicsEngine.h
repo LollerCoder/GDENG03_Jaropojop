@@ -60,5 +60,6 @@ private:
 	friend class VertexBuffer;
 	friend class VertexShader;
 	friend class PixelShader;
+	
 };
 
