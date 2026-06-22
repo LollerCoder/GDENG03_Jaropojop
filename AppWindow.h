@@ -7,6 +7,11 @@
 #include "VertexShader.h"
 #include "PixelShader.h"
 
+#include "Quads.h"
+
+#include <vector>
+
+
 
 class AppWindow : public Window
 {
@@ -20,9 +25,11 @@ public:
 	void onDestroy() override;
 private: 
 	SwapChain* m_swap_chain;
-	VertexBuffer* m_vb;
-	VertexShader* m_vs;
-	PixelShader* m_ps;
+	Quads* work;
+private:
+	std::vector<Quads*> quadList = {};
+private:
+	friend class Quads;
 
 };
 
