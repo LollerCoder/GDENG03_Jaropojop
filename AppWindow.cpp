@@ -96,6 +96,9 @@ void AppWindow::onUpdate()
 
 void AppWindow::onDestroy()
 {
+	for (Quads* q : quadList) {
+		q->release();
+	}
 
 	Window::onDestroy();
 	m_swap_chain->release();
