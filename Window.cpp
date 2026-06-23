@@ -73,6 +73,7 @@ bool Window::init()
 
 bool Window::broadcast()
 {
+    EngineTime::LogFrameStart();
     MSG msg;
 
     this->onUpdate();
@@ -83,7 +84,8 @@ bool Window::broadcast()
     }
 
 
-    Sleep(0);
+    Sleep(1);
+    EngineTime::LogFrameEnd();
     return true;
 }
 

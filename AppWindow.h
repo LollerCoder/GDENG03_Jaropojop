@@ -9,7 +9,7 @@
 #include "ConstantBuffer.h"
 
 #include "Quads.h"
-
+#include "EngineTime.h"
 #include <vector>
 
 
@@ -32,8 +32,7 @@ private:
 private:
 	friend class Quads;
 	ConstantBuffer* m_cb;
-	unsigned long m_old_time = 0;
-	float m_delta_time = 0;
+	
 	float m_angle = 0;
 
 };

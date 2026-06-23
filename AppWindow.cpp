@@ -1,6 +1,11 @@
 #include "AppWindow.h"
 #include "SwapChain.h"
+#include "Vector3D.h"
 #include <Windows.h>
+
+
+
+
 
 __declspec(align(16))
 struct constant
@@ -30,9 +35,9 @@ void AppWindow::onCreate()
 	RECT rc = this->getClientWindowRect();
 	m_swap_chain->init(this->m_hwnd, rc.right - rc.left, rc.bottom - rc.top);
 
-	std::vector<vec3> pos;
-	std::vector<vec3>pos1;
-	std::vector<vec3> cols;
+	std::vector<Vector3D> pos;
+	std::vector<Vector3D>pos1;
+	std::vector<Vector3D> cols;
 	
 	pos.push_back({ -0.1f, -0.1f, 0.0f });
 	pos1.push_back({ -0.5f, -0.5f, 0.0f });
@@ -75,12 +80,10 @@ void AppWindow::onUpdate()
 	RECT rc = this->getClientWindowRect();
 	GraphicsEngine::get()->getImmediateDeviceContext()->setViewportSize(rc.right - rc.left, rc.bottom - rc.top);
 
-	unsigned long new_time = 0;
-	if (m_old_time)
-		new_time = ::GetTickCount() - m_old_time;
-	m_delta_time = new_time / 1000.0f;
-	m_old_time = ::GetTickCount();
-	m_angle += 1.57f * m_delta_time;
+	
+	float deltaTime = static_cast<float>(EngineTime::getDeltaTime());
+
+	m_angle += 1.57f * deltaTime;
 	constant cc;
 	cc.m_angle = m_angle;
 

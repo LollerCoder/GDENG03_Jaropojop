@@ -34,6 +34,12 @@
     <Filter Include="GameEngine\Constant Buffer">
       <UniqueIdentifier>{be9f0467-a4a0-4e4f-8ad3-417e3f3339e0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="App\EngineTime">
+      <UniqueIdentifier>{c4a53a63-806a-43d7-ad82-6b2a863d4729}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\Math">
+      <UniqueIdentifier>{849d2bc6-ad0b-47d2-af2a-e9b9130782d6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -69,6 +75,9 @@
     <ClCompile Include="ConstantBuffer.cpp">
       <Filter>GameEngine\Constant Buffer</Filter>
     </ClCompile>
+    <ClCompile Include="EngineTime.cpp">
+      <Filter>App\EngineTime</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppWindow.h">
@@ -100,6 +109,12 @@
     </ClInclude>
     <ClInclude Include="ConstantBuffer.h">
       <Filter>GameEngine\Constant Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineTime.h">
+      <Filter>App\EngineTime</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector3D.h">
+      <Filter>GameEngine\Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
