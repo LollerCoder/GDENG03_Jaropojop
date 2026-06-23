@@ -2,14 +2,14 @@
 
 Quads::Quads()
 {
-	this->m_list[0] = { -0.5f,-0.5f,0.0f,    0,1,0 };
-	this->m_list[1] = { -0.5f, 0.5f,0.0f,    0,1,0 };
-	this->m_list[2] = { 0.5f, -0.5f,0.0f,    0,1,0 };
-	this->m_list[3] = { 0.5f,0.5f,0.0f,      0,1,0 };
+	this->m_list[0] = { Vector3D( - 0.5f,-0.5f,0.0f),    Vector3D(0,1,0)};
+	this->m_list[1] = { Vector3D( - 0.5f, 0.5f,0.0f),    Vector3D(0,1,0)};
+	this->m_list[2] = { Vector3D(0.5f, -0.5f,0.0f),    Vector3D(0,1,0) };
+	this->m_list[3] = { Vector3D(0.5f,0.5f,0.0f),      Vector3D(0,1,0) };
 	this->init();
 }
 
-Quads::Quads(std::vector<vec3> pos, std::vector<vec3> cols)
+Quads::Quads(std::vector<Vector3D> pos, std::vector<Vector3D> cols)
 {
 	this->m_list[0] = { pos[0],    cols[0]};
 	this->m_list[1] = { pos[1],    cols[1] };
@@ -18,7 +18,7 @@ Quads::Quads(std::vector<vec3> pos, std::vector<vec3> cols)
 	this->init();
 }
 
-Quads::Quads(std::vector<vec3> pos, std::vector<vec3> pos2, std::vector<vec3> cols)
+Quads::Quads(std::vector<Vector3D> pos, std::vector<Vector3D> pos2, std::vector<Vector3D> cols)
 {
 	this->m_list[0] = { pos[0], pos2[0],    cols[0]};
 	this->m_list[1] = { pos[1], pos2[1],    cols[1] };

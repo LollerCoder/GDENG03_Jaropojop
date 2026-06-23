@@ -6,26 +6,22 @@
 #include "DeviceContext.h"
 #include <vector>
 #include "ConstantBuffer.h"
+#include "Vector3D.h"
 
-
-struct vec3
-{
-	float x, y, z;
-};
 
 struct vertex
 {
-	vec3 position;
-	vec3 position1;
-	vec3 color;
+	Vector3D position;
+	Vector3D position1;
+	Vector3D color;
 };
 
 class Quads
 {
 public:
 	Quads();
-	Quads(std::vector<vec3> pos, std::vector<vec3> cols);
-	Quads(std::vector<vec3> pos, std::vector<vec3> pos2, std::vector<vec3> cols);
+	Quads(std::vector<Vector3D> pos, std::vector<Vector3D> cols);
+	Quads(std::vector<Vector3D> pos, std::vector<Vector3D> pos2, std::vector<Vector3D> cols);
 
 	void init();
 	void draw();
@@ -37,6 +33,6 @@ private:
 	VertexBuffer* m_vb;
 	VertexShader* m_vs;
 	PixelShader* m_ps;
-
+	
 };
 
