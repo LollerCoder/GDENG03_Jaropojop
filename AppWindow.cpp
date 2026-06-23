@@ -1,7 +1,12 @@
 #include "AppWindow.h"
 #include "SwapChain.h"
+#include <Windows.h>
 
-
+__declspec(align(16))
+struct constant
+{
+	float m_angle;
+};
 
 AppWindow::AppWindow()
 {
@@ -26,54 +31,38 @@ void AppWindow::onCreate()
 	m_swap_chain->init(this->m_hwnd, rc.right - rc.left, rc.bottom - rc.top);
 
 	std::vector<vec3> pos;
+	std::vector<vec3>pos1;
 	std::vector<vec3> cols;
 	
 	pos.push_back({ -0.1f, -0.1f, 0.0f });
+	pos1.push_back({ -0.5f, -0.5f, 0.0f });
 	cols.push_back({ 0, 1, 0 });
 
 	pos.push_back({ -0.1f, 0.1f,0.0f });
+	pos1.push_back({ -0.5f, 0.5f,0.0f });
 	cols.push_back({ 0,1,0 });
 
 	pos.push_back({ 0.1f, -0.1f,0.0f });
+	pos1.push_back({ 0.5f, -0.5f,0.0f });
 	cols.push_back({ 0,1,0 });
 
 	pos.push_back({ 0.1f,0.1f,0.0f });
+	pos1.push_back({ 0.5f, 0.5f,0.0f });
 	cols.push_back({ 0,1,0 });
 
-	quadList.push_back(new Quads(pos, cols));
+	quadList.push_back(new Quads(pos, pos1, cols));
 	pos.clear();
+	pos1.clear();
 	cols.clear();
 
-	pos.push_back({ -0.9f, 0.9f, 0.0f });
-	cols.push_back({ 0,0,1 });
+	
 
-	pos.push_back({ -0.8f, 0.9f,0.0f });
-	cols.push_back({ 0,0,1 });
+	
+	constant cc;
+	cc.m_angle = 0;
 
-	pos.push_back({ -0.9f,0.8f,0.0f });
-	cols.push_back({ 0,0,1 });
-
-	pos.push_back({ -0.8f, 0.8f,0.0f });
-	cols.push_back({ 0,0,1 });
-
-	quadList.push_back(new Quads(pos, cols));
-
-	pos.clear();
-	cols.clear();
-
-	pos.push_back({ 0.9f, -0.9f, 0.0f });
-	cols.push_back({ 1,0,0 });
-
-	pos.push_back({ 0.8f, -0.9f,0.0f });
-	cols.push_back({ 1,0,0 });
-
-	pos.push_back({ 0.9f,-0.8f,0.0f });
-	cols.push_back({ 1,0,0 });
-
-	pos.push_back({ 0.8f, -0.8f,0.0f });
-	cols.push_back({ 1,0,0 });
-
-	quadList.push_back(new Quads(pos, cols));
+	m_cb = GraphicsEngine::get()->createConstantBuffer();
+	m_cb->load(&cc, sizeof(constant));
 
 }
 
@@ -85,10 +74,23 @@ void AppWindow::onUpdate()
 
 	RECT rc = this->getClientWindowRect();
 	GraphicsEngine::get()->getImmediateDeviceContext()->setViewportSize(rc.right - rc.left, rc.bottom - rc.top);
+
+	unsigned long new_time = 0;
+	if (m_old_time)
+		new_time = ::GetTickCount() - m_old_time;
+	m_delta_time = new_time / 1000.0f;
+	m_old_time = ::GetTickCount();
+	m_angle += 1.57f * m_delta_time;
+	constant cc;
+	cc.m_angle = m_angle;
+
+	m_cb->update(GraphicsEngine::get()->getImmediateDeviceContext(), &cc);
+	
 	
 	//relevant to draws
 	
 	for (Quads* q : quadList) {
+		q->setConstantBuffer(m_cb);
 		q->draw();
 	}
 	m_swap_chain->present(false);
