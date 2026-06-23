@@ -31,6 +31,9 @@
     <Filter Include="Primitives">
       <UniqueIdentifier>{53787025-c65c-4e65-b4d8-f42e0c41387c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameEngine\Constant Buffer">
+      <UniqueIdentifier>{be9f0467-a4a0-4e4f-8ad3-417e3f3339e0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -63,6 +66,9 @@
     <ClCompile Include="Quads.cpp">
       <Filter>Primitives</Filter>
     </ClCompile>
+    <ClCompile Include="ConstantBuffer.cpp">
+      <Filter>GameEngine\Constant Buffer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppWindow.h">
@@ -91,6 +97,9 @@
     </ClInclude>
     <ClInclude Include="Quads.h">
       <Filter>Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstantBuffer.h">
+      <Filter>GameEngine\Constant Buffer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

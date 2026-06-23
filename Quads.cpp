@@ -18,6 +18,15 @@ Quads::Quads(std::vector<vec3> pos, std::vector<vec3> cols)
 	this->init();
 }
 
+Quads::Quads(std::vector<vec3> pos, std::vector<vec3> pos2, std::vector<vec3> cols)
+{
+	this->m_list[0] = { pos[0], pos2[0],    cols[0]};
+	this->m_list[1] = { pos[1], pos2[1],    cols[1] };
+	this->m_list[2] = { pos[2], pos2[2],    cols[2] };
+	this->m_list[3] = { pos[3], pos2[3],    cols[3] };
+	this->init();
+}
+
 
 void Quads::init()
 {
@@ -53,6 +62,12 @@ void Quads::draw()
 	GraphicsEngine::get()->getImmediateDeviceContext()->setVertexBuffer(m_vb);
 
 	GraphicsEngine::get()->getImmediateDeviceContext()->drawTriangleStrip(m_vb->getSizeVertexList(), 0);
+}
+
+void Quads::setConstantBuffer(ConstantBuffer* cb)
+{
+	GraphicsEngine::get()->getImmediateDeviceContext()->setConstantBuffer(m_vs, cb);
+	GraphicsEngine::get()->getImmediateDeviceContext()->setConstantBuffer(m_ps, cb);
 }
 
 void Quads::release()

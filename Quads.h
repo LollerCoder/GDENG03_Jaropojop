@@ -5,6 +5,7 @@
 #include "GraphicsEngine.h"
 #include "DeviceContext.h"
 #include <vector>
+#include "ConstantBuffer.h"
 
 
 struct vec3
@@ -15,6 +16,7 @@ struct vec3
 struct vertex
 {
 	vec3 position;
+	vec3 position1;
 	vec3 color;
 };
 
@@ -23,8 +25,11 @@ class Quads
 public:
 	Quads();
 	Quads(std::vector<vec3> pos, std::vector<vec3> cols);
+	Quads(std::vector<vec3> pos, std::vector<vec3> pos2, std::vector<vec3> cols);
+
 	void init();
 	void draw();
+	void setConstantBuffer(ConstantBuffer* cb);
 	void release();
 
 private:

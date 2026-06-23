@@ -6,6 +6,7 @@
 #include "VertexBuffer.h"
 #include "VertexShader.h"
 #include "PixelShader.h"
+#include "ConstantBuffer.h"
 
 #include "Quads.h"
 
@@ -30,6 +31,10 @@ private:
 	std::vector<Quads*> quadList = {};
 private:
 	friend class Quads;
+	ConstantBuffer* m_cb;
+	unsigned long m_old_time = 0;
+	float m_delta_time = 0;
+	float m_angle = 0;
 
 };
 
