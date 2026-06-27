@@ -24,6 +24,7 @@
     <ClInclude Include="DeviceContext.h" />
     <ClInclude Include="EngineTime.h" />
     <ClInclude Include="GraphicsEngine.h" />
+    <ClInclude Include="Matrix4x4.h" />
     <ClInclude Include="PixelShader.h" />
     <ClInclude Include="Quads.h" />
     <ClInclude Include="SwapChain.h" />

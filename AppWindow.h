@@ -18,6 +18,10 @@ class AppWindow : public Window
 {
 public:
 	AppWindow();
+
+	void updateQuadPosition();
+
+
 	~AppWindow();
 
 	// Inherited via Window
@@ -34,6 +38,7 @@ private:
 	ConstantBuffer* m_cb;
 	
 	float m_angle = 0;
-
+	float m_delta_pos;
+	float m_delta_scale;
 };
 

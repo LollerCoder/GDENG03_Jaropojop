@@ -2,6 +2,7 @@
 #include <iostream>
 #include <chrono>
 #include <ctime>
+#include <Windows.h>
 
 class Window;
 class EngineTime
