@@ -7,10 +7,11 @@
 #include "VertexShader.h"
 #include "PixelShader.h"
 #include "ConstantBuffer.h"
-
+#include "IndexBuffer.h"
 #include "Quads.h"
 #include "EngineTime.h"
 #include <vector>
+#include "Cube.h"
 
 
 
@@ -31,14 +32,18 @@ public:
 private: 
 	SwapChain* m_swap_chain;
 	Quads* work;
+	Cube* cubeWork;
 private:
 	std::vector<Quads*> quadList = {};
+	std::vector<Cube*> cubeList = {};
 private:
-	friend class Quads;
+	
 	ConstantBuffer* m_cb;
 	
+	float speed = 1;
 	float m_angle = 0;
 	float m_delta_pos;
 	float m_delta_scale;
+
 };
 

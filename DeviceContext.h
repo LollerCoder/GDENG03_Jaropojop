@@ -4,6 +4,7 @@
 class SwapChain;
 class VertexBuffer;
 class ConstantBuffer;
+class IndexBuffer;
 class VertexShader;
 class PixelShader;
 
@@ -17,7 +18,9 @@ public:
 	ID3D11DeviceContext* getContext();
 	void clearRenderTargetColor(SwapChain* swap_chain, float red, float green, float blue, float alpha);
 	void setVertexBuffer(VertexBuffer* vertex_buffer);
+	void setIndexBuffer(IndexBuffer* index_buffer);
 	void drawTriangleList(UINT vertex_count, UINT start_vertex_index);
+	void drawIndexedTriangleList(UINT index_count, UINT start_vertex_index, UINT start_index_location);
 	void drawTriangleStrip(UINT vertex_count, UINT start_vertex_index);
 	void setViewportSize(UINT width, UINT height);
 
@@ -26,6 +29,8 @@ public:
 
 	void setConstantBuffer(VertexShader* vertex_shader,ConstantBuffer* buffer);
 	void setConstantBuffer(PixelShader* pixel_shader, ConstantBuffer* buffer);
+
+
 
 	bool Release();
 private:

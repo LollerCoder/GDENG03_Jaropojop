@@ -40,6 +40,12 @@
     <Filter Include="GameEngine\Math">
       <UniqueIdentifier>{849d2bc6-ad0b-47d2-af2a-e9b9130782d6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameEngine\IndexBuffer">
+      <UniqueIdentifier>{d719abbd-32bb-4a5d-8af8-fea74e07550d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\GraphicsEngine\Camera">
+      <UniqueIdentifier>{8369afb1-4857-48ff-b113-837516b0d8be}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -77,6 +83,12 @@
     </ClCompile>
     <ClCompile Include="EngineTime.cpp">
       <Filter>App\EngineTime</Filter>
+    </ClCompile>
+    <ClCompile Include="IndexBuffer.cpp">
+      <Filter>GameEngine\IndexBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="Cube.cpp">
+      <Filter>Primitives</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -118,6 +130,12 @@
     </ClInclude>
     <ClInclude Include="Matrix4x4.h">
       <Filter>GameEngine\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="IndexBuffer.h">
+      <Filter>GameEngine\IndexBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Cube.h">
+      <Filter>Primitives</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

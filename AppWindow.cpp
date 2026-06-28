@@ -4,7 +4,8 @@
 #include "Matrix4x4.h"
 #include <Windows.h>
 
-
+#include <cstdlib>
+#include <ctime>
 
 
 
@@ -30,22 +31,83 @@ void AppWindow::updateQuadPosition()
 	cc.m_angle = m_angle;
 
 
-	m_delta_pos += EngineTime::getDeltaTime() * 1.0f;
-
-	if (m_delta_pos > 1.0f)
-		m_delta_pos = 0.0f;
+	
 
 	Matrix4x4 temp;
 
 	m_delta_scale += EngineTime::getDeltaTime() / 0.5f;
 
-	//cc.m_world.setTranslation(Vector3D(0, 0, 0));
-	//cc.m_world.setTranslation(Vector3D::lerp(Vector3D(-2, -2, 0), Vector3D(2,2,0),m_delta_pos));
-	cc.m_world.setScale(Vector3D::lerp(Vector3D(0.5, 0.5, 0), Vector3D(2, 2, 0), (sin(m_delta_scale) + 1.0f) / 2.0f));
-	temp.setTranslation(Vector3D::lerp(Vector3D(-2, -2, 0), Vector3D(2, 2, 0), m_delta_pos));
+	
+	cc.m_world.setIdentity();
+
+	/*temp.setIdentity();
+	temp.setRotationZ(15);
 	cc.m_world *= temp;
+
+
+	temp.setIdentity();
+	temp.setRotationY(15);
+	cc.m_world *= temp;
+
+	temp.setIdentity();
+	temp.setRotationX(5);
+	cc.m_world *= temp;*/
+
+	m_delta_pos += speed * deltaTime;
+
+	
+
+	//Answer for making a plane from a cube #5
+	/*if (m_delta_pos < 1.0f)
+	{
+		temp.setIdentity();
+		temp.setScale(Vector3D::lerp(Vector3D(1, 1, 1), Vector3D(4, 0.25, 0), m_delta_pos));
+		cc.m_world *= temp;
+	}
+	else {
+		temp.setIdentity();
+		temp.setScale(Vector3D::lerp(Vector3D(1, 1, 1), Vector3D(4, 0.25, 0), 1));
+		cc.m_world *= temp;
+	}*/
+
+	
+	/*m_delta_pos += speed * deltaTime;
+
+	if (m_delta_pos > 1.0f)
+	{
+		m_delta_pos = 1.0f;
+		speed = -speed;
+	}
+	else if (m_delta_pos < 0.0f)
+	{
+		m_delta_pos = 0.0f;
+		speed = -speed;
+	}
+
+	
+	temp.setIdentity();
+	temp.setScale(Vector3D::lerp(Vector3D(1, 1, 1), Vector3D(0.25, 0.25, 0.25), m_delta_pos));
+	cc.m_world *= temp;
+
+
+	temp.setIdentity();
+	temp.setTranslation(Vector3D::lerp(Vector3D(1, 1, 0), Vector3D(-1, -1, 0), m_delta_pos));
+	cc.m_world *= temp;*/
+
+
+	
 	cc.m_view.setIdentity();
-	//cc.m_proj.setIdentity();
+
+	//temp.setIdentity();
+	//temp.setTranslation(Vector3D(0.0f, -0.01f, 1.0f));
+	//cc.m_view *= temp;
+
+	//temp.setIdentity();
+	//temp.setRotationY(10);
+	//cc.m_view *= temp;
+	
+
+
 	float aspect = (float)(this->getClientWindowRect().right - this->getClientWindowRect().left) /
 		(float)(this->getClientWindowRect().bottom - this->getClientWindowRect().top);
 
@@ -64,7 +126,7 @@ AppWindow::~AppWindow()
 
 void AppWindow::onCreate()
 {
-	
+	srand((unsigned int)time(nullptr));
 	
     
 	Window::onCreate();
@@ -76,39 +138,43 @@ void AppWindow::onCreate()
 	RECT rc = this->getClientWindowRect();
 	m_swap_chain->init(this->m_hwnd, rc.right - rc.left, rc.bottom - rc.top);
 
-	std::vector<Vector3D> pos;
-	std::vector<Vector3D>pos1;
-	std::vector<Vector3D> cols;
 	
+
+	std::vector<Vector3D> pos;
+	std::vector<Vector3D> cols;
 	pos.push_back({ -0.1f, -0.1f, 0.0f });
-	pos1.push_back({ -0.5f, -0.5f, 0.0f });
 	cols.push_back({ 0, 1, 0 });
-
 	pos.push_back({ -0.1f, 0.1f,0.0f });
-	pos1.push_back({ -0.5f, 0.5f,0.0f });
 	cols.push_back({ 0,1,0 });
-
 	pos.push_back({ 0.1f, -0.1f,0.0f });
-	pos1.push_back({ 0.5f, -0.5f,0.0f });
 	cols.push_back({ 0,1,0 });
-
 	pos.push_back({ 0.1f,0.1f,0.0f });
-	pos1.push_back({ 0.5f, 0.5f,0.0f });
 	cols.push_back({ 0,1,0 });
-
-	quadList.push_back(new Quads(pos, pos1, cols));
+	quadList.push_back(new Quads(pos, cols));
 	pos.clear();
-	pos1.clear();
 	cols.clear();
 
 	
+	cubeWork = new Cube();
+	cubeList.push_back(cubeWork);
+	//Answer for #4 render 50 random cubes
+	/*for (int i = 0; i < 50; i++)
+	{
+		float x = ((float)rand() / RAND_MAX) * 2.0f - 1.0f; 
+		float y = ((float)rand() / RAND_MAX) * 2.0f - 1.0f; 
+		float z = ((float)rand() / RAND_MAX) * 2.0f - 1.0f; 
 
-	
+		Cube* cube = new Cube(x, y, z);
+		cubeList.push_back(cube);
+	}*/
+
 	constant cc;
 	cc.m_angle = 0;
 
 	m_cb = GraphicsEngine::get()->createConstantBuffer();
 	m_cb->load(&cc, sizeof(constant));
+
+	
 
 }
 
@@ -136,10 +202,17 @@ void AppWindow::onUpdate()
 	
 	//relevant to draws
 	
-	for (Quads* q : quadList) {
+	/*for (Quads* q : quadList) {
 		q->setConstantBuffer(m_cb);
 		q->draw();
-	}
+	}*/
+	cubeWork->setConstantBuffer(m_cb);
+	cubeWork->draw();
+
+	/*for (Cube* c : cubeList) {
+		c->setConstantBuffer(m_cb);
+		c->draw();
+	}*/
 	m_swap_chain->present(false);
 }
 
@@ -148,6 +221,10 @@ void AppWindow::onDestroy()
 	for (Quads* q : quadList) {
 		q->release();
 	}
+	for (Cube* c : cubeList) {
+		c->release();
+	}
+
 	m_cb->Release();
 	Window::onDestroy();
 	m_swap_chain->release();

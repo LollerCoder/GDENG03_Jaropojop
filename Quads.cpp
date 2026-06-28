@@ -18,14 +18,14 @@ Quads::Quads(std::vector<Vector3D> pos, std::vector<Vector3D> cols)
 	this->init();
 }
 
-Quads::Quads(std::vector<Vector3D> pos, std::vector<Vector3D> pos2, std::vector<Vector3D> cols)
-{
-	this->m_list[0] = { pos[0], pos2[0],    cols[0]};
-	this->m_list[1] = { pos[1], pos2[1],    cols[1] };
-	this->m_list[2] = { pos[2], pos2[2],    cols[2] };
-	this->m_list[3] = { pos[3], pos2[3],    cols[3] };
-	this->init();
-}
+//Quads::Quads(std::vector<Vector3D> pos, std::vector<Vector3D> pos2, std::vector<Vector3D> cols)
+//{
+//	this->m_list[0] = { pos[0], pos2[0],    cols[0]};
+//	this->m_list[1] = { pos[1], pos2[1],    cols[1] };
+//	this->m_list[2] = { pos[2], pos2[2],    cols[2] };
+//	this->m_list[3] = { pos[3], pos2[3],    cols[3] };
+//	this->init();
+//}
 
 
 void Quads::init()
