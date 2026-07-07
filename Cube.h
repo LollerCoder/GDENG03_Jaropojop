@@ -7,32 +7,36 @@
 #include <vector>
 #include "ConstantBuffer.h"
 #include "Vector3D.h"
+#include "Quads.h"
+#include "IndexBuffer.h"
 
 
-struct vertex
-{
-	Vector3D position;
-	
-	Vector3D color;
-};
 
-class Quads
+
+
+class Cube
 {
 public:
-	Quads();
-	Quads(std::vector<Vector3D> pos, std::vector<Vector3D> cols);
-	/*Quads(std::vector<Vector3D> pos, std::vector<Vector3D> pos2, std::vector<Vector3D> cols);*/
-
+	Cube();
+	Cube(std::vector<Vector3D> pos, std::vector<Vector3D> cols);
+	/*Cube(std::vector<Vector3D> pos, std::vector<Vector3D> pos2, std::vector<Vector3D> cols);*/
+	Cube(float x,float y,float z);
 	void init();
 	void draw();
 	void setConstantBuffer(ConstantBuffer* cb);
+
 	void release();
 
 private:
-	vertex m_list[4];
+	friend class Quads;
+	vertex vertex_list[8];
 	VertexBuffer* m_vb;
 	VertexShader* m_vs;
 	PixelShader* m_ps;
+	IndexBuffer* m_ib;
+
+
 	
+
 };
 
