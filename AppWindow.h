@@ -12,10 +12,11 @@
 #include "EngineTime.h"
 #include <vector>
 #include "Cube.h"
+#include "InputListener.h"
 
 
 
-class AppWindow : public Window
+class AppWindow : public Window, public InputListener
 {
 public:
 	AppWindow();
@@ -29,6 +30,8 @@ public:
 	void onCreate() override;
 	void onUpdate() override;
 	void onDestroy() override;
+	void onFocus() override;
+	void onKillFocus() override;
 private: 
 	SwapChain* m_swap_chain;
 	Quads* work;
@@ -44,6 +47,26 @@ private:
 	float m_angle = 0;
 	float m_delta_pos;
 	float m_delta_scale;
+
+	float m_rot_x = 0.0f;
+	float m_rot_y = 0.0f;
+	float m_scale_cube = 1.0f;
+
+
+	// Inherited via InputListener
+	void onKeyDown(int key) override;
+
+	void onKeyUp(int key) override;
+
+
+	// Inherited via InputListener
+	void onMouseMove(const Point& delta_mouse_pos) override;
+
+	void onRightMouseDown(const Point& mouse_pos) override;
+	void onRightMouseUp(const Point& mouse_pos) override;
+
+	void onLeftMouseDown(const Point& mouse_pos) override;
+	void onLeftMouseUp(const Point& mouse_pos) override;
 
 };
 
