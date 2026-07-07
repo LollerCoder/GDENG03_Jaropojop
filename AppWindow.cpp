@@ -3,6 +3,7 @@
 #include "Vector3D.h"
 #include "Matrix4x4.h"
 #include <Windows.h>
+#include "InputSystem.h"
 
 #include <cstdlib>
 #include <ctime>
@@ -40,72 +41,25 @@ void AppWindow::updateQuadPosition()
 	
 	cc.m_world.setIdentity();
 
-	/*temp.setIdentity();
-	temp.setRotationZ(15);
-	cc.m_world *= temp;
+	cc.m_world.setScale(Vector3D(m_scale_cube, m_scale_cube, m_scale_cube));
+
+	//temp.setIdentity();
+	//temp.setRotationZ(15);
+	//cc.m_world *= temp;
 
 
 	temp.setIdentity();
-	temp.setRotationY(15);
+	temp.setRotationY(m_rot_y);
 	cc.m_world *= temp;
 
 	temp.setIdentity();
-	temp.setRotationX(5);
-	cc.m_world *= temp;*/
+	temp.setRotationX(m_rot_x);
+	cc.m_world *= temp;
 
 	m_delta_pos += speed * deltaTime;
 
 	
-
-	//Answer for making a plane from a cube #5
-	/*if (m_delta_pos < 1.0f)
-	{
-		temp.setIdentity();
-		temp.setScale(Vector3D::lerp(Vector3D(1, 1, 1), Vector3D(4, 0.25, 0), m_delta_pos));
-		cc.m_world *= temp;
-	}
-	else {
-		temp.setIdentity();
-		temp.setScale(Vector3D::lerp(Vector3D(1, 1, 1), Vector3D(4, 0.25, 0), 1));
-		cc.m_world *= temp;
-	}*/
-
-	
-	/*m_delta_pos += speed * deltaTime;
-
-	if (m_delta_pos > 1.0f)
-	{
-		m_delta_pos = 1.0f;
-		speed = -speed;
-	}
-	else if (m_delta_pos < 0.0f)
-	{
-		m_delta_pos = 0.0f;
-		speed = -speed;
-	}
-
-	
-	temp.setIdentity();
-	temp.setScale(Vector3D::lerp(Vector3D(1, 1, 1), Vector3D(0.25, 0.25, 0.25), m_delta_pos));
-	cc.m_world *= temp;
-
-
-	temp.setIdentity();
-	temp.setTranslation(Vector3D::lerp(Vector3D(1, 1, 0), Vector3D(-1, -1, 0), m_delta_pos));
-	cc.m_world *= temp;*/
-
-
-	
 	cc.m_view.setIdentity();
-
-	//temp.setIdentity();
-	//temp.setTranslation(Vector3D(0.0f, -0.01f, 1.0f));
-	//cc.m_view *= temp;
-
-	//temp.setIdentity();
-	//temp.setRotationY(10);
-	//cc.m_view *= temp;
-	
 
 
 	float aspect = (float)(this->getClientWindowRect().right - this->getClientWindowRect().left) /
@@ -130,6 +84,10 @@ void AppWindow::onCreate()
 	
     
 	Window::onCreate();
+	
+	InputSystem::get()->addListener(this);
+
+
 	//GraphicsEngine::get()->init();
 	GraphicsEngine::get()->initialize();
 	
@@ -180,13 +138,12 @@ void AppWindow::onCreate()
 
 void AppWindow::onUpdate()
 {
-	if (GetAsyncKeyState(VK_ESCAPE) & 0x0001)
-	{
-		PostMessage(m_hwnd, WM_CLOSE, 0, 0);
-	}
+	
 
 
 	Window::onUpdate();
+	InputSystem::get()->update();
+
 	GraphicsEngine::get()->getImmediateDeviceContext()->clearRenderTargetColor(this->m_swap_chain,0,0.3,0.5,1);
 
 
@@ -231,4 +188,62 @@ void AppWindow::onDestroy()
 	GraphicsEngine::get()->destroy();
 
 
+}
+
+void AppWindow::onFocus()
+{
+	InputSystem::get()->addListener(this);
+
+}
+
+void AppWindow::onKillFocus()
+{
+	InputSystem::get()->removeListener(this);
+}
+
+void AppWindow::onKeyDown(int key)
+{
+	if (key == 'W') {
+		m_rot_x += 0.707f * EngineTime::getDeltaTime();
+	}
+	else if (key == 'S') {
+		m_rot_x -= 0.707f * EngineTime::getDeltaTime();
+	}
+
+	if (key == 'A') {
+		m_rot_y += 0.707f * EngineTime::getDeltaTime();
+	}
+	else if (key == 'D') {
+		m_rot_y -= 0.707f * EngineTime::getDeltaTime();
+	}
+}
+
+void AppWindow::onKeyUp(int key)
+{
+}
+
+void AppWindow::onMouseMove(const Point& delta_mouse_pos)
+{
+	m_rot_x -= delta_mouse_pos.m_y * EngineTime::getDeltaTime();
+	m_rot_y -= delta_mouse_pos.m_x * EngineTime::getDeltaTime();
+}
+
+void AppWindow::onRightMouseDown(const Point& mouse_pos)
+{
+	m_scale_cube = 2.0f;
+}
+
+void AppWindow::onRightMouseUp(const Point& mouse_pos)
+{
+	m_scale_cube = 1.0f;
+}
+
+void AppWindow::onLeftMouseDown(const Point& mouse_pos)
+{
+	m_scale_cube = 0.5f;
+}
+
+void AppWindow::onLeftMouseUp(const Point& mouse_pos)
+{
+	m_scale_cube = 1.0f;
 }
