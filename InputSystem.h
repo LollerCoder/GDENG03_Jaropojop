@@ -12,6 +12,9 @@ public:
 	void update();
 	void addListener(InputListener* listener);
 	void removeListener(InputListener*listener);
+
+	void setCursorPosition(const Point& pos);
+	void showCursor(bool show);
 public:
 	static InputSystem* get();
 	std::unordered_set<InputListener*> m_set_listeners;

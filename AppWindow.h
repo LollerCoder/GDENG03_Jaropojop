@@ -13,7 +13,7 @@
 #include <vector>
 #include "Cube.h"
 #include "InputListener.h"
-
+#include "Matrix4x4.h"
 
 
 class AppWindow : public Window, public InputListener
@@ -21,7 +21,7 @@ class AppWindow : public Window, public InputListener
 public:
 	AppWindow();
 
-	void updateQuadPosition();
+	void update();
 
 
 	~AppWindow();
@@ -51,6 +51,9 @@ private:
 	float m_rot_x = 0.0f;
 	float m_rot_y = 0.0f;
 	float m_scale_cube = 1.0f;
+	float m_forward = 0.0f;
+	float m_rightward = 0.0f;
+	Matrix4x4 m_world_cam;
 
 
 	// Inherited via InputListener
@@ -60,7 +63,7 @@ private:
 
 
 	// Inherited via InputListener
-	void onMouseMove(const Point& delta_mouse_pos) override;
+	void onMouseMove(const Point& mouse_pos) override;
 
 	void onRightMouseDown(const Point& mouse_pos) override;
 	void onRightMouseUp(const Point& mouse_pos) override;
