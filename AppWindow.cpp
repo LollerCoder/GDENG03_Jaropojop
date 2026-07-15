@@ -120,6 +120,8 @@ void AppWindow::onCreate()
 	pos.clear();
 	cols.clear();
 
+	plane = new Plane();
+
 	
 	cubeWork = new Cube();
 	cubeList.push_back(cubeWork);
@@ -171,6 +173,8 @@ void AppWindow::onUpdate()
 		q->setConstantBuffer(m_cb);
 		q->draw();
 	}*/
+	plane->setConstantBuffer(m_cb);
+	plane->draw();
 	cubeWork->setConstantBuffer(m_cb);
 	cubeWork->draw();
 

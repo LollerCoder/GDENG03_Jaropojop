@@ -14,6 +14,7 @@
 #include "Cube.h"
 #include "InputListener.h"
 #include "Matrix4x4.h"
+#include "Plane.h"
 
 
 class AppWindow : public Window, public InputListener
@@ -36,9 +37,11 @@ private:
 	SwapChain* m_swap_chain;
 	Quads* work;
 	Cube* cubeWork;
+	Plane* plane;
 private:
 	std::vector<Quads*> quadList = {};
 	std::vector<Cube*> cubeList = {};
+
 private:
 	
 	ConstantBuffer* m_cb;

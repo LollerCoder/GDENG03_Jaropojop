@@ -35,6 +35,7 @@ public:
 	bool Release();
 private:
 	ID3D11DeviceContext* m_device_context;
+	
 private:
 	friend class ConstantBuffer;
 };
