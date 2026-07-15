@@ -93,6 +93,7 @@
     <ClCompile Include="InputSystem.cpp">
       <Filter>GameEngine\GraphicsEngine\InputSystem</Filter>
     </ClCompile>
+    <ClCompile Include="Plane.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppWindow.h">
@@ -152,6 +153,7 @@
     <ClInclude Include="Vector4D.h">
       <Filter>GameEngine\Math</Filter>
     </ClInclude>
+    <ClInclude Include="Plane.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="VertexShader.hlsl">
