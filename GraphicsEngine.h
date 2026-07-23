@@ -19,13 +19,14 @@ public:
 	bool Release();
 	
 	~GraphicsEngine();
-	GraphicsEngine (GraphicsEngine* const&) {};
-	GraphicsEngine& operator=(GraphicsEngine* const&) {};
-	static GraphicsEngine* sharedInstance;
+	
 
 public:
 	SwapChain* createSwapChain();
+
 	DeviceContext* getImmediateDeviceContext();
+	ID3D11Device* getDevice();
+
 	VertexBuffer* createVertexBuffer();
 	ConstantBuffer* createConstantBuffer();
 	IndexBuffer* createIndexBuffer();
@@ -39,6 +40,10 @@ public:
 	
 
 private:
+	GraphicsEngine(GraphicsEngine* const&) {};
+	GraphicsEngine& operator=(GraphicsEngine* const&) {};
+	static GraphicsEngine* sharedInstance;
+
 	DeviceContext* m_imm_device_context;
 
 public:

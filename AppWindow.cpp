@@ -8,6 +8,12 @@
 #include <cstdlib>
 #include <ctime>
 
+//IMGUI
+#include "IMGUI/imgui.h"
+#include "IMGUI/backends/imgui_impl_win32.h"
+#include "IMGUI/backends/imgui_impl_dx11.h"
+#include "UIManager.h"
+AppWindow* AppWindow::sharedInstance = nullptr;
 
 
 __declspec(align(16))
@@ -21,6 +27,7 @@ struct constant
 
 AppWindow::AppWindow()
 {
+	
 }
 
 void AppWindow::update()
@@ -85,21 +92,128 @@ AppWindow::~AppWindow()
 {
 }
 
+void AppWindow::init()
+{
+	if (sharedInstance == nullptr) {
+		sharedInstance = new AppWindow();
+		sharedInstance->Window::init();   
+		
+	}
+	
+}
+
 void AppWindow::onCreate()
 {
-	srand((unsigned int)time(nullptr));
 	
-    
 	Window::onCreate();
+
+}
+
+void AppWindow::onUpdate()
+{
+	
+
+
+	Window::onUpdate();
+	InputSystem::get()->update();
+
+	GraphicsEngine::get()->getImmediateDeviceContext()->clearRenderTargetColor(this->m_swap_chain,0,0.3,0.5,1);
+
+
+	RECT rc = this->getClientWindowRect();
+	GraphicsEngine::get()->getImmediateDeviceContext()->setViewportSize(rc.right - rc.left, rc.bottom - rc.top);
+
+	
+	/*ImGui_ImplDX11_NewFrame();
+	ImGui_ImplWin32_NewFrame();
+	ImGui::NewFrame();
+	ImGui::ShowDemoWindow();*/
+	
+
+	update();
 	
 	
+	//relevant to draws
+	
+	/*for (Quads* q : quadList) {
+		q->setConstantBuffer(m_cb);
+		q->draw();
+	}*/
+	plane->setConstantBuffer(m_cb);
+	plane->draw();
+	cubeWork->setConstantBuffer(m_cb);
+	cubeWork->draw();
+
+	/*for (Cube* c : cubeList) {
+		c->setConstantBuffer(m_cb);
+		c->draw();
+	}*/
+
+	UIManager::getInstance()->drawAllUI();
+
+	/*ImGui::Render();
+	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());*/
+	m_swap_chain->present(false);
+	
+}
+
+void AppWindow::onDestroy()
+{
+	for (Quads* q : quadList) {
+		q->release();
+	}
+	for (Cube* c : cubeList) {
+		c->release();
+	}
+
+	m_cb->Release();
+	////IMGUI
+	//ImGui_ImplDX11_Shutdown();
+	//ImGui_ImplWin32_Shutdown();
+	//ImGui::DestroyContext();
+
+	Window::onDestroy();
+	m_swap_chain->release();
+	GraphicsEngine::get()->destroy();
+
+
+}
+
+void AppWindow::onFocus()
+{
 	InputSystem::get()->addListener(this);
-	InputSystem::get()->showCursor(false);
+
+}
+
+void AppWindow::onKillFocus()
+{
+	InputSystem::get()->removeListener(this);
+}
+
+void AppWindow::CreateGraphicsWindow()
+{
+	srand((unsigned int)time(nullptr));
+
+
+	
+
+
+	InputSystem::get()->addListener(this);
+	InputSystem::get()->showCursor(true);
+
+
 
 	//GraphicsEngine::get()->init();
 	GraphicsEngine::get()->initialize();
-	
+
 	m_swap_chain = GraphicsEngine::get()->createSwapChain();
+
+
+	UIManager::getInstance()->initialize(m_hwnd);
+
+
+
+
 
 	RECT rc = this->getClientWindowRect();
 	m_swap_chain->init(this->m_hwnd, rc.right - rc.left, rc.bottom - rc.top);
@@ -122,15 +236,15 @@ void AppWindow::onCreate()
 
 	plane = new Plane();
 
-	
+
 	cubeWork = new Cube();
 	cubeList.push_back(cubeWork);
 	//Answer for #4 render 50 random cubes
 	/*for (int i = 0; i < 50; i++)
 	{
-		float x = ((float)rand() / RAND_MAX) * 2.0f - 1.0f; 
-		float y = ((float)rand() / RAND_MAX) * 2.0f - 1.0f; 
-		float z = ((float)rand() / RAND_MAX) * 2.0f - 1.0f; 
+		float x = ((float)rand() / RAND_MAX) * 2.0f - 1.0f;
+		float y = ((float)rand() / RAND_MAX) * 2.0f - 1.0f;
+		float z = ((float)rand() / RAND_MAX) * 2.0f - 1.0f;
 
 		Cube* cube = new Cube(x, y, z);
 		cubeList.push_back(cube);
@@ -142,75 +256,11 @@ void AppWindow::onCreate()
 	m_cb = GraphicsEngine::get()->createConstantBuffer();
 	m_cb->load(&cc, sizeof(constant));
 
-	
-
 }
 
-void AppWindow::onUpdate()
+AppWindow* AppWindow::get()
 {
-	
-
-
-	Window::onUpdate();
-	InputSystem::get()->update();
-
-	GraphicsEngine::get()->getImmediateDeviceContext()->clearRenderTargetColor(this->m_swap_chain,0,0.3,0.5,1);
-
-
-	RECT rc = this->getClientWindowRect();
-	GraphicsEngine::get()->getImmediateDeviceContext()->setViewportSize(rc.right - rc.left, rc.bottom - rc.top);
-
-	
-	
-	
-
-	update();
-	
-	
-	//relevant to draws
-	
-	/*for (Quads* q : quadList) {
-		q->setConstantBuffer(m_cb);
-		q->draw();
-	}*/
-	plane->setConstantBuffer(m_cb);
-	plane->draw();
-	cubeWork->setConstantBuffer(m_cb);
-	cubeWork->draw();
-
-	/*for (Cube* c : cubeList) {
-		c->setConstantBuffer(m_cb);
-		c->draw();
-	}*/
-	m_swap_chain->present(false);
-}
-
-void AppWindow::onDestroy()
-{
-	for (Quads* q : quadList) {
-		q->release();
-	}
-	for (Cube* c : cubeList) {
-		c->release();
-	}
-
-	m_cb->Release();
-	Window::onDestroy();
-	m_swap_chain->release();
-	GraphicsEngine::get()->destroy();
-
-
-}
-
-void AppWindow::onFocus()
-{
-	InputSystem::get()->addListener(this);
-
-}
-
-void AppWindow::onKillFocus()
-{
-	InputSystem::get()->removeListener(this);
+	return sharedInstance;
 }
 
 void AppWindow::onKeyDown(int key)
@@ -242,26 +292,26 @@ void AppWindow::onKeyUp(int key)
 
 void AppWindow::onMouseMove(const Point& mouse_pos)
 {
-	int width = (float)(this->getClientWindowRect().right - this->getClientWindowRect().left);
-	int height =	(float)(this->getClientWindowRect().bottom - this->getClientWindowRect().top);
+	if (m_activate_cam) {
+		m_rot_x += (mouse_pos.m_y) * EngineTime::getDeltaTime();
+		m_rot_y += (mouse_pos.m_x) * EngineTime::getDeltaTime();
+	}
+	/*int width = (float)(this->getClientWindowRect().right - this->getClientWindowRect().left);
+	int height =	(float)(this->getClientWindowRect().bottom - this->getClientWindowRect().top);*/
 
-
-
-	m_rot_x += (mouse_pos.m_y - (height/2.0f)) * EngineTime::getDeltaTime() * 0.1f;
-	m_rot_y += (mouse_pos.m_x - (width / 2.0f)) * EngineTime::getDeltaTime() * 0.1f;
-
-
-
-	InputSystem::get()->setCursorPosition(Point(width/2.0f,height/2.0f));
+	//InputSystem::get()->setCursorPosition(Point(width/2.0f,height/2.0f));
 }
 
 void AppWindow::onRightMouseDown(const Point& mouse_pos)
 {
+	m_activate_cam = true;
 	m_scale_cube = 2.0f;
+
 }
 
 void AppWindow::onRightMouseUp(const Point& mouse_pos)
 {
+	m_activate_cam = false;
 	m_scale_cube = 1.0f;
 }
 
