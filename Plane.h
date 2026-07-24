@@ -23,17 +23,17 @@ public:
 	Plane(float x, float y, float z);
 	void init();
 	void draw();
-	void setConstantBuffer(ConstantBuffer* cb);
+	void setConstantBuffer(ConstantBufferPtr  cb);
 
 	void release();
 
 private:
 	friend class Quads;
 	vertex vertex_list[4];
-	VertexBuffer* m_vb;
-	VertexShader* m_vs;
-	PixelShader* m_ps;
-	IndexBuffer* m_ib;
+	VertexBufferPtr m_vb;
+	VertexShaderPtr m_vs;
+	PixelShaderPtr m_ps;
+	IndexBufferPtr m_ib;
 
 
 

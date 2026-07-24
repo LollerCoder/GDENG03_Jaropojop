@@ -2,10 +2,12 @@
 #include <windows.h>
 #include <mmsystem.h>
 #include "EngineTime.h"
+#include "GraphicsEngine.h"
 
 
 int main()
 {
+    
     EngineTime::initialize();
     AppWindow::init();
     AppWindow* app = (AppWindow*) AppWindow::get();
@@ -15,6 +17,7 @@ int main()
     while (app->isRun()) {
         app->broadcast();
     }
+    
    
     return 0;
 

@@ -47,7 +47,7 @@ private:
 
 	AppWindow(AppWindow const&) {};
 	AppWindow& operator=(AppWindow const&) {};
-	SwapChain* m_swap_chain;
+	SwapChainPtr m_swap_chain;
 	Quads* work;
 	Cube* cubeWork;
 	Plane* plane;
@@ -60,7 +60,7 @@ private:
 
 private:
 	
-	ConstantBuffer* m_cb;
+	ConstantBufferPtr m_cb;
 	
 	float speed = 1;
 	float m_angle = 0;
