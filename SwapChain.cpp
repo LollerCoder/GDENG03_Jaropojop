@@ -1,13 +1,11 @@
 #include "SwapChain.h"
-#include "GraphicsEngine.h"
+#include "RenderSystem.h"
+#include <exception>
 
-SwapChain::SwapChain()
-{
-}
 
-bool SwapChain::init(HWND hwnd, UINT width, UINT height)
+SwapChain::SwapChain(HWND hwnd, UINT width, UINT height,RenderSystem* system) : m_system(system)
 {
-    ID3D11Device* device = GraphicsEngine::get()->m_d3d_device;
+    ID3D11Device* device = m_system->m_d3d_device;
 
     DXGI_SWAP_CHAIN_DESC desc;
     ZeroMemory(&desc, sizeof(desc));
@@ -25,17 +23,17 @@ bool SwapChain::init(HWND hwnd, UINT width, UINT height)
 
 
 
-    HRESULT hr =GraphicsEngine::get()->m_dxgi_factory->CreateSwapChain(device, &desc, &m_swap_chain);
+    HRESULT hr = m_system->m_dxgi_factory->CreateSwapChain(device, &desc, &m_swap_chain);
 
     if (FAILED(hr)) {
-        return false;
+        throw std::exception("SwapChain not created successfully");
     }
 
     ID3D11Texture2D* buffer = NULL;
     hr = m_swap_chain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)&buffer);
 
     if (FAILED(hr)) {
-        return false;
+        throw std::exception("D3D11Texture2D not created succesfully");
     }
 
 
@@ -44,7 +42,7 @@ bool SwapChain::init(HWND hwnd, UINT width, UINT height)
 
 
     if (FAILED(hr)) {
-        return false;
+        throw std::exception("CRTV(RenderTargetView) not created successfully");
     }
 
     D3D11_TEXTURE2D_DESC depthDesc = {};
@@ -65,7 +63,7 @@ bool SwapChain::init(HWND hwnd, UINT width, UINT height)
     );
 
     if (FAILED(hr))
-        return false;
+        throw std::exception("");
     hr = device->CreateDepthStencilView(
         m_depthBuffer,
         nullptr,
@@ -73,7 +71,7 @@ bool SwapChain::init(HWND hwnd, UINT width, UINT height)
     );
 
     if (FAILED(hr))
-        return false;
+        throw std::exception("StencilDepthView not created successfully");
 
     D3D11_DEPTH_STENCIL_DESC dsDesc = {};
 
@@ -89,10 +87,11 @@ bool SwapChain::init(HWND hwnd, UINT width, UINT height)
     );
 
     if (FAILED(hr))
-        return false;
+        throw std::exception("DepthStencilState not created successfully");
 
-    return true;
+    
 }
+
 
 bool SwapChain::present(bool vsync)
 {
@@ -100,7 +99,9 @@ bool SwapChain::present(bool vsync)
     return false;
 }
 
-bool SwapChain::release()
+
+
+SwapChain::~SwapChain()
 {
     m_swap_chain->Release();
     if (m_depthStencilState)
@@ -117,10 +118,4 @@ bool SwapChain::release()
 
     if (m_swap_chain)
         m_swap_chain->Release();
-    delete this;
-    return false;
-}
-
-SwapChain::~SwapChain()
-{
 }

@@ -5,14 +5,17 @@
 #include "PixelShader.h"
 #include "ConstantBuffer.h"
 #include "IndexBuffer.h"
+#include <exception>
 
-DeviceContext::DeviceContext(ID3D11DeviceContext* device_context) : m_device_context(device_context)
+DeviceContext::DeviceContext(ID3D11DeviceContext* device_context, RenderSystem* system) : m_system(system), m_device_context(device_context)
 {
 
 }
 
 DeviceContext::~DeviceContext()
 {
+	m_device_context->Release();
+	
 }
 
 ID3D11DeviceContext* DeviceContext::getContext()
@@ -94,9 +97,4 @@ void DeviceContext::setConstantBuffer(PixelShader* pixel_shader, ConstantBuffer*
 	m_device_context->PSSetConstantBuffers(0, 1, &buffer->m_buffer);
 }
 
-bool DeviceContext::Release()
-{
-	m_device_context->Release();
-	delete this;
-	return true;
-}
+
