@@ -27,17 +27,33 @@ public:
 
 	~AppWindow();
 
+	static void init();
 	// Inherited via Window
 	void onCreate() override;
 	void onUpdate() override;
 	void onDestroy() override;
 	void onFocus() override;
 	void onKillFocus() override;
+
+	void CreateGraphicsWindow();
+
+	static AppWindow* get();
+
+	static AppWindow* sharedInstance;
+
+
+
 private: 
+
+	AppWindow(AppWindow const&) {};
+	AppWindow& operator=(AppWindow const&) {};
 	SwapChain* m_swap_chain;
 	Quads* work;
 	Cube* cubeWork;
 	Plane* plane;
+	bool m_activate_cam;
+	
+	
 private:
 	std::vector<Quads*> quadList = {};
 	std::vector<Cube*> cubeList = {};

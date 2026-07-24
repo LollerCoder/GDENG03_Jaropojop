@@ -20,20 +20,31 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppWindow.h" />
+    <ClInclude Include="AUIScreen.h" />
     <ClInclude Include="ConstantBuffer.h" />
     <ClInclude Include="Cube.h" />
     <ClInclude Include="DeviceContext.h" />
     <ClInclude Include="EngineTime.h" />
     <ClInclude Include="GraphicsEngine.h" />
+    <ClInclude Include="IMGui\backends\imgui_impl_dx11.h" />
+    <ClInclude Include="IMGui\backends\imgui_impl_win32.h" />
+    <ClInclude Include="IMGui\imconfig.h" />
+    <ClInclude Include="IMGui\imgui.h" />
+    <ClInclude Include="IMGui\imgui_internal.h" />
+    <ClInclude Include="IMGui\imstb_rectpack.h" />
+    <ClInclude Include="IMGui\imstb_textedit.h" />
+    <ClInclude Include="IMGui\imstb_truetype.h" />
     <ClInclude Include="IndexBuffer.h" />
     <ClInclude Include="InputListener.h" />
     <ClInclude Include="InputSystem.h" />
+    <ClInclude Include="Libs\DirectXTex\include\DirectXTex.h" />
     <ClInclude Include="Matrix4x4.h" />
     <ClInclude Include="PixelShader.h" />
     <ClInclude Include="Plane.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="Quads.h" />
     <ClInclude Include="SwapChain.h" />
+    <ClInclude Include="UIManager.h" />
     <ClInclude Include="Vector3D.h" />
     <ClInclude Include="Vector4D.h" />
     <ClInclude Include="VertexBuffer.h" />
@@ -42,11 +53,19 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AppWindow.cpp" />
+    <ClCompile Include="AUIScreen.cpp" />
     <ClCompile Include="ConstantBuffer.cpp" />
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="DeviceContext.cpp" />
     <ClCompile Include="EngineTime.cpp" />
     <ClCompile Include="GraphicsEngine.cpp" />
+    <ClCompile Include="IMGui\backends\imgui_impl_dx11.cpp" />
+    <ClCompile Include="IMGui\backends\imgui_impl_win32.cpp" />
+    <ClCompile Include="IMGui\imgui.cpp" />
+    <ClCompile Include="IMGui\imgui_demo.cpp" />
+    <ClCompile Include="IMGui\imgui_draw.cpp" />
+    <ClCompile Include="IMGui\imgui_tables.cpp" />
+    <ClCompile Include="IMGui\imgui_widgets.cpp" />
     <ClCompile Include="IndexBuffer.cpp" />
     <ClCompile Include="InputSystem.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -54,6 +73,7 @@
     <ClCompile Include="Plane.cpp" />
     <ClCompile Include="Quads.cpp" />
     <ClCompile Include="SwapChain.cpp" />
+    <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="VertexBuffer.cpp" />
     <ClCompile Include="VertexShader.cpp" />
     <ClCompile Include="Window.cpp" />
@@ -162,7 +182,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>d3d11.lib;d3dcompiler.lib;Ole32.lib;winmm.lib;xaudio2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;d3dcompiler.lib;Ole32.lib;winmm.lib;xaudio2.lib;DirectXTexD.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\Jai\Desktop\GithubRepos\GDENG03\Libs\DirectXTex\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -179,7 +200,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>d3d11.lib;d3dcompiler.lib;Ole32.lib;winmm.lib;xaudio2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;d3dcompiler.lib;Ole32.lib;winmm.lib;xaudio2.lib;DirectXTexD.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\Jai\Desktop\GithubRepos\GDENG03\Libs\DirectXTex\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

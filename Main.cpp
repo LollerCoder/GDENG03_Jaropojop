@@ -7,14 +7,15 @@
 int main()
 {
     EngineTime::initialize();
-    AppWindow app;
+    AppWindow::init();
+    AppWindow* app = (AppWindow*) AppWindow::get();
+    app->CreateGraphicsWindow();
   
-    if (app.init()) {
-
-        while (app.isRun()) {
-            app.broadcast();
-        }
+    
+    while (app->isRun()) {
+        app->broadcast();
     }
+   
     return 0;
 
 }

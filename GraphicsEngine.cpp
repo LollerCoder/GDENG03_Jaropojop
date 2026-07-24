@@ -17,8 +17,11 @@ GraphicsEngine::GraphicsEngine()
 
 void GraphicsEngine::initialize()
 {
-    sharedInstance = new GraphicsEngine();
-    sharedInstance->init();
+    if (sharedInstance == nullptr)
+    {
+        sharedInstance = new GraphicsEngine();
+        sharedInstance->init();
+    }
 }
 
 void GraphicsEngine::destroy()
@@ -98,6 +101,11 @@ SwapChain* GraphicsEngine::createSwapChain()
 DeviceContext* GraphicsEngine::getImmediateDeviceContext()
 {
     return this->m_imm_device_context;
+}
+
+ID3D11Device* GraphicsEngine::getDevice()
+{
+    return this->m_d3d_device;
 }
 
 VertexBuffer* GraphicsEngine::createVertexBuffer()

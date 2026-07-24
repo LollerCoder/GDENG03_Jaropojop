@@ -46,6 +46,15 @@
     <Filter Include="GameEngine\GraphicsEngine\InputSystem">
       <UniqueIdentifier>{bdeab731-bc0b-4896-8196-958b9f01021f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="IMGUI">
+      <UniqueIdentifier>{c31b49c5-4107-4d5a-ad45-1fa362d87f5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IMGUI\backends">
+      <UniqueIdentifier>{ab1362f9-e4df-4218-b733-2fb90bfab256}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\IMGUIClasses">
+      <UniqueIdentifier>{bc35fed2-ac33-4943-ab3e-36144b8318e2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -94,6 +103,31 @@
       <Filter>GameEngine\GraphicsEngine\InputSystem</Filter>
     </ClCompile>
     <ClCompile Include="Plane.cpp" />
+    <ClCompile Include="IMGui\imgui.cpp">
+      <Filter>IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="IMGui\imgui_demo.cpp">
+      <Filter>IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="IMGui\imgui_draw.cpp">
+      <Filter>IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="IMGui\imgui_tables.cpp">
+      <Filter>IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="IMGui\imgui_widgets.cpp">
+      <Filter>IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="IMGui\backends\imgui_impl_dx11.cpp">
+      <Filter>IMGUI\backends</Filter>
+    </ClCompile>
+    <ClCompile Include="IMGui\backends\imgui_impl_win32.cpp">
+      <Filter>IMGUI\backends</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIScreen.cpp">
+      <Filter>GameEngine\IMGUIClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="UIManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppWindow.h">
@@ -154,6 +188,37 @@
       <Filter>GameEngine\Math</Filter>
     </ClInclude>
     <ClInclude Include="Plane.h" />
+    <ClInclude Include="IMGui\imconfig.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGui\imgui.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGui\imgui_internal.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGui\imstb_rectpack.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGui\imstb_textedit.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGui\imstb_truetype.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGui\backends\imgui_impl_dx11.h">
+      <Filter>IMGUI\backends</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGui\backends\imgui_impl_win32.h">
+      <Filter>IMGUI\backends</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIScreen.h">
+      <Filter>GameEngine\IMGUIClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="UIManager.h" />
+    <ClInclude Include="Libs\DirectXTex\include\DirectXTex.h">
+      <Filter>App</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="VertexShader.hlsl">
