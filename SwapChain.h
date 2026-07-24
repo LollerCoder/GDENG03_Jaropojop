@@ -1,19 +1,18 @@
 #pragma once
 #include <d3d11.h>
-
-class DeviceContext;
+#include "Prerequisites.h"
 
 class SwapChain
 {
 public:
-	SwapChain();
-	bool init(HWND hwnd, UINT width, UINT height);
+	SwapChain(HWND hwnd, UINT width, UINT height,RenderSystem* system);
+
 
 	bool present(bool vsync);
 
 
 
-	bool release();
+
 	~SwapChain();
 private:
 	IDXGISwapChain* m_swap_chain;
@@ -21,6 +20,7 @@ private:
 	ID3D11Texture2D* m_depthBuffer = nullptr;
 	ID3D11DepthStencilView* m_dsv = nullptr;
 	ID3D11DepthStencilState* m_depthStencilState = nullptr;
+	RenderSystem* m_system = nullptr;
 private:
 	friend class DeviceContext; 
 };

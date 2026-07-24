@@ -81,52 +81,48 @@ void Cube::init()
 	};
 
 
-	GraphicsEngine::get()->createIndexBuffer();
 
-	m_ib = GraphicsEngine::get()->createIndexBuffer();
 	UINT size_index_list = ARRAYSIZE(index_list);
-
-	m_ib->load(index_list, size_index_list);
-
+	m_ib = GraphicsEngine::get()->getRenderSystem()->createIndexBuffer(index_list, size_index_list);
 	
-	m_vb = GraphicsEngine::get()->createVertexBuffer();
+
 	UINT size_list = ARRAYSIZE(this->vertex_list);
-
-	
-
 	void* shader_byte_code = nullptr;
 	size_t size_shader = 0;
 
-	GraphicsEngine::get()->compileVertexShader(L"VertexShader.hlsl", "vsmain", &shader_byte_code, &size_shader);
-	m_vs = GraphicsEngine::get()->createVertexShader(shader_byte_code, size_shader);
-	m_vb->load(vertex_list, sizeof(vertex), size_list, shader_byte_code, size_shader);
-
-	GraphicsEngine::get()->releaseCompiledShader();
-
-	GraphicsEngine::get()->compilePixelShader(L"PixelShader.hlsl", "psmain", &shader_byte_code, &size_shader);
-	m_ps = GraphicsEngine::get()->createPixelShader(shader_byte_code, size_shader);
+	GraphicsEngine::get()->getRenderSystem()->compileVertexShader(L"VertexShader.hlsl", "vsmain", &shader_byte_code, &size_shader);
+	m_vs = GraphicsEngine::get()->getRenderSystem()->createVertexShader(shader_byte_code, size_shader);
+	m_vb = GraphicsEngine::get()->getRenderSystem()->createVertexBuffer(vertex_list, sizeof(vertex), size_list, shader_byte_code, size_shader);
+	
 
 
-	GraphicsEngine::get()->releaseCompiledShader();
+	
+	GraphicsEngine::get()->getRenderSystem()->releaseCompiledShader();
+
+	GraphicsEngine::get()->getRenderSystem()->compilePixelShader(L"PixelShader.hlsl", "psmain", &shader_byte_code, &size_shader);
+	m_ps = GraphicsEngine::get()->getRenderSystem()->createPixelShader(shader_byte_code, size_shader);
+
+
+	GraphicsEngine::get()->getRenderSystem()->releaseCompiledShader();
 }
 
 void Cube::draw()
 {
-	GraphicsEngine::get()->getImmediateDeviceContext()->setVertexShader(m_vs);
-	GraphicsEngine::get()->getImmediateDeviceContext()->setPixelShader(m_ps);
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setVertexShader(m_vs);
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setPixelShader(m_ps);
 
-	GraphicsEngine::get()->getImmediateDeviceContext()->setVertexBuffer(m_vb);
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setVertexBuffer(m_vb);
 
-	GraphicsEngine::get()->getImmediateDeviceContext()->setIndexBuffer(m_ib);
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setIndexBuffer(m_ib);
 
-	GraphicsEngine::get()->getImmediateDeviceContext()->drawIndexedTriangleList(m_ib->getSizeIndexList(), 0,0);
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->drawIndexedTriangleList(m_ib->getSizeIndexList(), 0,0);
 }
 
 void Cube::setConstantBuffer(ConstantBuffer* cb)
 {
 
-		GraphicsEngine::get()->getImmediateDeviceContext()->setConstantBuffer(m_vs, cb);
-		GraphicsEngine::get()->getImmediateDeviceContext()->setConstantBuffer(m_ps, cb);
+		GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setConstantBuffer(m_vs, cb);
+		GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setConstantBuffer(m_ps, cb);
 	
 	
 }
@@ -136,8 +132,4 @@ void Cube::setConstantBuffer(ConstantBuffer* cb)
 void Cube::release()
 {
 
-	this->m_vb->Release();
-	this->m_ps->Release();
-	this->m_vs->Release();
-	this->m_ib->Release();
 }

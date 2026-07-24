@@ -32,47 +32,44 @@ void Quads::init()
 {
 	
 
-
-	m_vb = GraphicsEngine::get()->createVertexBuffer();
 	UINT size_list = ARRAYSIZE(this->m_list);
-
-
-
 	void* shader_byte_code = nullptr;
 	size_t size_shader = 0;
 
-	GraphicsEngine::get()->compileVertexShader(L"VertexShader.hlsl", "vsmain", &shader_byte_code, &size_shader);
-	m_vs = GraphicsEngine::get()->createVertexShader(shader_byte_code, size_shader);
-	m_vb->load(m_list, sizeof(vertex), size_list, shader_byte_code, size_shader);
+	GraphicsEngine::get()->getRenderSystem()->compileVertexShader(L"VertexShader.hlsl", "vsmain", &shader_byte_code, &size_shader);
+	m_vs = GraphicsEngine::get()->getRenderSystem()->createVertexShader(shader_byte_code, size_shader);
 
-	GraphicsEngine::get()->releaseCompiledShader();
+	m_vb = GraphicsEngine::get()->getRenderSystem()->createVertexBuffer(m_list, sizeof(vertex), size_list, shader_byte_code, size_shader);
 
-	GraphicsEngine::get()->compilePixelShader(L"PixelShader.hlsl", "psmain", &shader_byte_code, &size_shader);
-	m_ps = GraphicsEngine::get()->createPixelShader(shader_byte_code, size_shader);
+	
+	
+
+	GraphicsEngine::get()->getRenderSystem()->releaseCompiledShader();
+
+	GraphicsEngine::get()->getRenderSystem()->compilePixelShader(L"PixelShader.hlsl", "psmain", &shader_byte_code, &size_shader);
+	m_ps = GraphicsEngine::get()->getRenderSystem()->createPixelShader(shader_byte_code, size_shader);
 
 
-	GraphicsEngine::get()->releaseCompiledShader();
+	GraphicsEngine::get()->getRenderSystem()->releaseCompiledShader();
 }
 
 void Quads::draw()
 {
-	GraphicsEngine::get()->getImmediateDeviceContext()->setVertexShader(m_vs);
-	GraphicsEngine::get()->getImmediateDeviceContext()->setPixelShader(m_ps);
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setVertexShader(m_vs);
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setPixelShader(m_ps);
 
-	GraphicsEngine::get()->getImmediateDeviceContext()->setVertexBuffer(m_vb);
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setVertexBuffer(m_vb);
 
-	GraphicsEngine::get()->getImmediateDeviceContext()->drawTriangleStrip(m_vb->getSizeVertexList(), 0);
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->drawTriangleStrip(m_vb->getSizeVertexList(), 0);
 }
 
 void Quads::setConstantBuffer(ConstantBuffer* cb)
 {
-	GraphicsEngine::get()->getImmediateDeviceContext()->setConstantBuffer(m_vs, cb);
-	GraphicsEngine::get()->getImmediateDeviceContext()->setConstantBuffer(m_ps, cb);
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setConstantBuffer(m_vs, cb);
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setConstantBuffer(m_ps, cb);
 }
 
 void Quads::release()
 {
-	this->m_vb->Release();
-	this->m_ps->Release();
-	this->m_vs->Release();
+	
 }

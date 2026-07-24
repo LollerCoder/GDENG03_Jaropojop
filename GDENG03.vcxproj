@@ -42,7 +42,9 @@
     <ClInclude Include="PixelShader.h" />
     <ClInclude Include="Plane.h" />
     <ClInclude Include="Point.h" />
+    <ClInclude Include="Prerequisites.h" />
     <ClInclude Include="Quads.h" />
+    <ClInclude Include="RenderSystem.h" />
     <ClInclude Include="SwapChain.h" />
     <ClInclude Include="UIManager.h" />
     <ClInclude Include="Vector3D.h" />
@@ -72,6 +74,7 @@
     <ClCompile Include="PixelShader.cpp" />
     <ClCompile Include="Plane.cpp" />
     <ClCompile Include="Quads.cpp" />
+    <ClCompile Include="RenderSystem.cpp" />
     <ClCompile Include="SwapChain.cpp" />
     <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="VertexBuffer.cpp" />

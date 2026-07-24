@@ -80,7 +80,7 @@ void AppWindow::update()
 
 
 	cc.m_proj.setPerspectiveFovLH(1.57f,aspect,0.1f,100.0f);
-	m_cb->update(GraphicsEngine::get()->getImmediateDeviceContext(), &cc);
+	m_cb->update(GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext(), &cc);
 }
 
 AppWindow::~AppWindow()
@@ -101,6 +101,7 @@ void AppWindow::onCreate()
 {
 	
 	Window::onCreate();
+	GraphicsEngine::get()->initialize();
 
 }
 
@@ -112,11 +113,11 @@ void AppWindow::onUpdate()
 	Window::onUpdate();
 	InputSystem::get()->update();
 
-	GraphicsEngine::get()->getImmediateDeviceContext()->clearRenderTargetColor(this->m_swap_chain,0,0.3,0.5,1);
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->clearRenderTargetColor(this->m_swap_chain,0,0.3,0.5,1);
 
 
 	RECT rc = this->getClientWindowRect();
-	GraphicsEngine::get()->getImmediateDeviceContext()->setViewportSize(rc.right - rc.left, rc.bottom - rc.top);
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setViewportSize(rc.right - rc.left, rc.bottom - rc.top);
 
 	
 	
@@ -141,18 +142,13 @@ void AppWindow::onUpdate()
 
 void AppWindow::onDestroy()
 {
-	for (Quads* q : quadList) {
-		q->release();
-	}
-	for (Cube* c : cubeList) {
-		c->release();
-	}
+	
 
-	m_cb->Release();
+	
 	
 	Window::onDestroy();
-	m_swap_chain->release();
-	GraphicsEngine::get()->destroy();
+	
+	GraphicsEngine::get()->Release();
 
 
 }
@@ -182,8 +178,9 @@ void AppWindow::CreateGraphicsWindow()
 
 
 	GraphicsEngine::get()->initialize();
+	RECT rc = this->getClientWindowRect();
 
-	m_swap_chain = GraphicsEngine::get()->createSwapChain();
+	m_swap_chain = GraphicsEngine::get()->getRenderSystem()->createSwapChain(this->m_hwnd, rc.right - rc.left, rc.bottom - rc.top);
 
 
 	UIManager::getInstance()->initialize(m_hwnd);
@@ -192,8 +189,8 @@ void AppWindow::CreateGraphicsWindow()
 
 
 
-	RECT rc = this->getClientWindowRect();
-	m_swap_chain->init(this->m_hwnd, rc.right - rc.left, rc.bottom - rc.top);
+	
+	
 
 	m_world_cam.setTranslation(Vector3D(0, 0, -2));
 
@@ -220,8 +217,8 @@ void AppWindow::CreateGraphicsWindow()
 	constant cc;
 	cc.m_angle = 0;
 
-	m_cb = GraphicsEngine::get()->createConstantBuffer();
-	m_cb->load(&cc, sizeof(constant));
+	m_cb = GraphicsEngine::get()->getRenderSystem()->createConstantBuffer(&cc, sizeof(constant));
+	
 
 }
 

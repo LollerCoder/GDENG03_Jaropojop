@@ -51,7 +51,7 @@ void UIManager::drawAllUI()
         if (SUCCEEDED(hr))
         {
             DirectX::CreateShaderResourceView(
-                GraphicsEngine::get()->getDevice(),
+                GraphicsEngine::get()->getRenderSystem()->getDevice(),
                 image.GetImages(),
                 image.GetImageCount(),
                 image.GetMetadata(),
@@ -136,7 +136,7 @@ UIManager::UIManager(HWND windowHandle)
     // Setup Platform/Renderer bindings
     // Setup Platform/Renderer backends
     ImGui_ImplWin32_Init(windowHandle);
-    ImGui_ImplDX11_Init(GraphicsEngine::get()->getDevice(), GraphicsEngine::get()->getImmediateDeviceContext()->getContext());
+    ImGui_ImplDX11_Init(GraphicsEngine::get()->getRenderSystem()->getDevice(), GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->getContext());
 }
 
 UIManager::~UIManager()
