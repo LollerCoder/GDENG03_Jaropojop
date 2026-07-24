@@ -30,16 +30,16 @@ void GraphicsEngine::destroy()
 bool GraphicsEngine::init()
 {
     m_render_system = new RenderSystem();
-    m_render_system->init();
+    
     return true;
 }
 
 bool GraphicsEngine::Release()
 {
-
-    m_render_system->Release();
-    delete m_render_system;
-    delete this;
+    delete sharedInstance;
+    
+    
+  
   
     
     return true;

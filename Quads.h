@@ -25,14 +25,14 @@ public:
 
 	void init();
 	void draw();
-	void setConstantBuffer(ConstantBuffer* cb);
+	void setConstantBuffer(ConstantBufferPtr  cb);
 	void release();
 
 private:
 	vertex m_list[4];
-	VertexBuffer* m_vb;
-	VertexShader* m_vs;
-	PixelShader* m_ps;
+	VertexBufferPtr m_vb;
+	VertexShaderPtr m_vs;
+	PixelShaderPtr m_ps;
 	
 };
 

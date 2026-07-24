@@ -99,9 +99,10 @@ void AppWindow::init()
 
 void AppWindow::onCreate()
 {
-	
-	Window::onCreate();
 	GraphicsEngine::get()->initialize();
+
+	Window::onCreate();
+
 
 }
 
@@ -177,7 +178,7 @@ void AppWindow::CreateGraphicsWindow()
 
 
 
-	GraphicsEngine::get()->initialize();
+	
 	RECT rc = this->getClientWindowRect();
 
 	m_swap_chain = GraphicsEngine::get()->getRenderSystem()->createSwapChain(this->m_hwnd, rc.right - rc.left, rc.bottom - rc.top);

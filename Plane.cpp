@@ -85,7 +85,7 @@ void Plane::draw()
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->drawIndexedTriangleList(m_ib->getSizeIndexList(), 0, 0);
 }
 
-void Plane::setConstantBuffer(ConstantBuffer* cb)
+void Plane::setConstantBuffer(ConstantBufferPtr  cb)
 {
 
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setConstantBuffer(m_vs, cb);

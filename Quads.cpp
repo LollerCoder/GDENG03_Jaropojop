@@ -63,7 +63,7 @@ void Quads::draw()
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->drawTriangleStrip(m_vb->getSizeVertexList(), 0);
 }
 
-void Quads::setConstantBuffer(ConstantBuffer* cb)
+void Quads::setConstantBuffer(ConstantBufferPtr  cb)
 {
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setConstantBuffer(m_vs, cb);
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setConstantBuffer(m_ps, cb);

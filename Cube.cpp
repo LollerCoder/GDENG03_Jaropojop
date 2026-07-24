@@ -118,7 +118,7 @@ void Cube::draw()
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->drawIndexedTriangleList(m_ib->getSizeIndexList(), 0,0);
 }
 
-void Cube::setConstantBuffer(ConstantBuffer* cb)
+void Cube::setConstantBuffer(ConstantBufferPtr  cb)
 {
 
 		GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setConstantBuffer(m_vs, cb);
